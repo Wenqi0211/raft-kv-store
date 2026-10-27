@@ -1,0 +1,12 @@
+{
+  "normalized_at_utc": "2026-10-27T21:02:02.643579+00:00",
+  "reason": "English-only repository presentation. One non-ASCII test fixture literal is represented with Java Unicode escapes; its runtime value and test behavior are unchanged.",
+  "source_file": "src/test/java/raftkv/raft/PersistentStoreTest.java",
+  "original_source_sha256": "758b8c945e9cc54e0867eb4735e8f87d0f1fb8aae0a3eff21b39999b6f05af81",
+  "published_source_sha256": "57d5628fc014826fb7fdedb1b7803aa3813712bca8c7baf4e360d8fd0d78298b",
+  "original_source_manifest_sha256": "0e52779f2b8335cf3d84380ef3980d5e92be2ea656c0d5be8ba7c79be076cbbd",
+  "published_source_manifest_sha256": "0c92744ee471580f5b482bfbebedc69788307891568e332ff2ca9bd9938735b0",
+  "original_tested_source_archive_sha256": "d30c843b46c79d4833d88d2f0ee70de0c19526a8299ebcaae40dc4f6d31c8adb",
+  "published_tested_source_archive_sha256": "5deb066e639fd1190f70eac11c8fb5043c7dfa5d05e459624e396b4fdf0e0a06",
+  "test_results": "Existing measured results, counts, timings, and XML are unchanged. This publication normalization does not represent a new performance or 100-seed test run."
+}

@@ -18,12 +18,20 @@ you can explain in detail and reproduce during a project discussion.
   three-process forced-leader-exit recovery check; configured artifact delivery
   after verification. Container deployment and sharding remain future work.
 
-### 中文简历候选表述
+### Alternative Resume Wording
 
-- 完善 Java Raft 分布式键值存储原型，修复任期与投票持久化、日志前缀提交及快照恢复边界问题，并补充协议回归测试。
-- 为状态文件增加刷盘、原子替换与目录同步，覆盖状态恢复、损坏文件拒绝及保存失败保留原状态等场景。
-- 完善基于真实 HTTP 的三节点验证流程，核对读写与删除结果、Leader 切换、快照追赶及副本状态收敛，并配置 JDK 17/21 自动测试工作流。
-- 增加统一验收入口、Java 17 兼容运行包和三个独立 JVM 的主节点强杀恢复检查，配置验证后交付运行包的自动化工作流。
+- Improved a Java Raft distributed key-value store prototype by fixing term and
+  vote persistence, log-prefix commitment, and snapshot recovery boundaries, and
+  added protocol regression tests.
+- Added file forcing, atomic replacement, and directory synchronization for
+  state files, covering state recovery, rejection of corrupt files, and
+  preservation of the previous state when a save fails.
+- Improved a three-node verification flow using real HTTP to check read, write,
+  and delete results, leader changes, snapshot catch-up, and replica-state
+  convergence, and configured an automated JDK 17/21 test workflow.
+- Added a shared verification entry point, a Java 17-compatible runnable package,
+  and a forced-leader-exit recovery check using three independent JVMs, and
+  configured an automated workflow to deliver the package after verification.
 
 The short local benchmark is a correctness smoke run, not a performance study.
 Performance comparisons need reproducible measurements with matching conditions.

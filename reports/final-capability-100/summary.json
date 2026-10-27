@@ -53,9 +53,10 @@
     }
   ],
   "source_manifest_file": "source-manifest.json",
-  "source_manifest_sha256": "0e52779f2b8335cf3d84380ef3980d5e92be2ea656c0d5be8ba7c79be076cbbd",
-  "tested_source_archive_sha256": "d30c843b46c79d4833d88d2f0ee70de0c19526a8299ebcaae40dc4f6d31c8adb",
+  "source_manifest_sha256": "0c92744ee471580f5b482bfbebedc69788307891568e332ff2ca9bd9938735b0",
+  "tested_source_archive_sha256": "5deb066e639fd1190f70eac11c8fb5043c7dfa5d05e459624e396b4fdf0e0a06",
   "current_source_matches_archived_manifest": true,
   "archived_source_file_count": 64,
-  "scope": "100 separately seeded five-node loss/restart/snapshot-recovery scenarios plus six focused capability tests and 21 supporting storage/client/timer/config tests; not 100 executions of the entire JUnit suite. Pure/simulated tests are separate from the 3 real-gRPC integration tests and 3 real performance trials."
+  "scope": "100 separately seeded five-node loss/restart/snapshot-recovery scenarios plus six focused capability tests and 21 supporting storage/client/timer/config tests; not 100 executions of the entire JUnit suite. Pure/simulated tests are separate from the 3 real-gRPC integration tests and 3 real performance trials.",
+  "publication_normalization_file": "publication-normalization.json"
 }

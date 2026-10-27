@@ -1,6 +1,6 @@
 {
   "captured_at_utc": "2026-10-25T03:16:41.621762+00:00",
-  "scope": "Final Java/proto/build/test/measurement sources before final 100 seeded recovery verification; documentation and generated outputs excluded.",
+  "scope": "Final Java/proto/build/test/measurement sources before final 100 seeded recovery verification; documentation and generated outputs excluded. The published archive normalizes one Unicode test literal to equivalent Java Unicode escapes; see publication-normalization.json for original hashes.",
   "files": {
     "pom.xml": "7fae104b73cb8da64cdb9e5cd9ff7461b8a3ec42a66bb1ff6eec9a9c7cff26e2",
     "scripts/benchmark.sh": "8bd18f84b993dc5684111aef96aaf55981f0d3a83ee568b129536c4f13ffb267",
@@ -57,7 +57,7 @@
     "src/test/java/raftkv/raft/BufferedPersistenceTest.java": "5b5a4f5daf8c02db4380a835b34e573f34a83d1c33b2c282460b5a6990c30d87",
     "src/test/java/raftkv/raft/ClusterIntegrationTest.java": "5d39aeab78d7a7a957c22eb6e2b4f82d601f74a71ea3dc3a427590cf7c628dc3",
     "src/test/java/raftkv/raft/ElectionTimingTest.java": "45a8f0c9c8cc16a5ef7e253ecaf37f96cb673a7bf8d5b6ac008597d292b24250",
-    "src/test/java/raftkv/raft/PersistentStoreTest.java": "758b8c945e9cc54e0867eb4735e8f87d0f1fb8aae0a3eff21b39999b6f05af81",
+    "src/test/java/raftkv/raft/PersistentStoreTest.java": "57d5628fc014826fb7fdedb1b7803aa3813712bca8c7baf4e360d8fd0d78298b",
     "src/test/java/raftkv/raft/RaftNodeRegressionTest.java": "c8cb544fcad6106adce6ee4f6605378e8742d6b5e3711f22b0ed5daba449badb",
     "src/test/java/raftkv/rpc/GrpcTransportTest.java": "5acb1cff5d65b2ca3d1d68ff4a1d34a80ba63f2fd957cb7b7151d0f02d870976",
     "src/test/java/raftkv/server/GrpcNodeConfigTest.java": "94cb8cc92de242efbd216bbd88ef537dc70fc73e4ce4d0ae208ee9d6e1881ab0",

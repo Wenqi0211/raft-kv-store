@@ -48,8 +48,11 @@ scenarios and six focused capability cases, all 18 tests passed in
 `reports/buffered-capability-10.log`. The earlier archived 100-seed result
 predates buffering. After the quiet performance study, the final 100-scenario
 capability class and 21 supporting tests passed, totaling 127 selected JUnit
-cases. Their actual XML and the unchanged tested-source SHA256 manifest are
-retained in `reports/final-capability-100/`.
+cases. Their actual XML and tested-source SHA256 manifest are retained in
+`reports/final-capability-100/`. The published source archive represents one
+Unicode test literal with equivalent Java escapes; original and published
+hashes are recorded in `publication-normalization.json` in that directory.
+Measured results are unchanged.
 
 ## Operational fixes and final measurement
 

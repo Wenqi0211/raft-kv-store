@@ -1,138 +1,165 @@
-# 从 Raft 原型走向可扩展、可交付、可维护的系统
+# From a Raft Prototype to a Scalable, Deliverable, Maintainable System
 
-学习路线：先在本机掌握，再考虑云服务器。每个阶段都先明确要解决的问题，
-再写代码，最后用可重复的检查验证结果。
+Learning path: master the system locally before considering cloud servers. At
+each stage, first define the problem to solve, then write the code, and finally
+verify the result with repeatable checks.
 
-## 三个目标分别解决什么问题
+## What the Three Goals Address
 
-| 目标 | 最通俗的理解 | 要增加的能力 |
+| Goal | Plain-language explanation | Capabilities to add |
 |---|---|---|
-| Scalability，可扩展性 | 生意变多了，多开几个真正分担工作的柜台 | 分片、多组 Raft、请求路由、负载与容量实验 |
-| CI，持续集成 | 每次交作业，都自动检查有没有改坏东西 | 编译、协议测试、进程故障检查 |
-| Delivery，交付 | 检查通过后，得到一份可以运行、可以识别版本的成品 | JAR/镜像产物、版本与构建记录 |
-| Deployment，部署 | 把这一份成品放到指定环境运行 | 环境配置、启动、验证、失败处理 |
-| DevOps | 让测试、交付、运行、观察和维护形成可靠流程 | 自动化、日志、指标、数据保存、部署与恢复 |
+| Scalability | As business grows, open more service counters that actually share the work | Sharding, multiple Raft groups, request routing, load and capacity experiments |
+| CI: continuous integration | Automatically check every submission for regressions | Compilation, protocol tests, process-failure checks |
+| Delivery | After checks pass, produce a runnable artifact with an identifiable version | JAR/image artifacts, version and build records |
+| Deployment | Run that artifact in a specified environment | Environment configuration, startup, verification, failure handling |
+| DevOps | Make testing, delivery, operation, observation, and maintenance a reliable workflow | Automation, logs, metrics, data persistence, deployment and recovery |
 
-目前新增的是 CI 和本机交付/验证基础。Docker、监控、分片和自动部署仍是后续阶段，
-不能把已经写好几个脚本等同于已经完成全部目标。
+The current additions establish a foundation for CI and local delivery and
+verification. Docker, monitoring, sharding, and automatic deployment remain later
+stages. Writing a few scripts does not mean all these goals are complete.
 
-## 为什么三个副本还不能说明可以扩容
+## Why Three Replicas Do Not Yet Demonstrate Scalability
 
-现在三个节点各保存全部数据。它们像三个人各抄一份相同的账本，
-主要目的是其中一个人离开时，账本仍然可用。
+Each of the three current nodes stores all the data. They are like three people
+each copying the same ledger, primarily so the ledger remains available when one
+person leaves.
 
-要分摊更多数据和写请求，需要让两组人分别负责不同的账，每组内部仍保存三份。
-路由器根据 key 决定请求应该交给哪一组。
+Sharing more data and write requests requires two groups to handle different
+ledgers, with each group still keeping three copies. A router uses the key to
+decide which group should receive each request.
 
-下面是后续准备实现的结构，当前代码尚未包含分片或路由器：
+The following structure is planned for a later stage. The current code does not
+yet include sharding or a router:
 
 ```mermaid
 flowchart LR
-    Client[客户端] --> Router[路由器：按 key 找分片]
-    Router --> G1[分片一：独立 Raft 组，三个副本]
-    Router --> G2[分片二：独立 Raft 组，三个副本]
+    Client[Client] --> Router[Router: find shard by key]
+    Router --> G1[Shard one: independent Raft group, three replicas]
+    Router --> G2[Shard two: independent Raft group, three replicas]
 ```
 
-这时每组只保存一部分 key，各自的主节点可以处理不同请求。
-是否更快，需要用相同数据大小、读写比例、并发、预热和刷盘配置来测量。
-单组三进程与双组六进程使用了不同的资源，测试报告要写清楚；
-都在同一台电脑上运行也会争用同一块磁盘，不能预先保证性能翻倍。
+Each group would then store only some of the keys, and their leaders could handle
+different requests. Whether this is faster must be measured with matching data
+sizes, read/write ratios, concurrency, warmup, and file-forcing settings. A single
+group of three processes and two groups totaling six processes use different resources,
+which the test report must state clearly. Running everything on one computer
+also creates contention for the same disk, so doubled performance cannot be
+guaranteed in advance.
 
-动态扩容还需要迁移：新增一组后，有些旧 key 要搬家。
-迁移期间的新写入、路由切换和失败恢复都需要设计。
-因此先做固定两组，再学暂停写入的迁移，最后考虑在线迁移。
+Dynamic expansion also requires migration: after adding a group, some existing
+keys must move. Writes during migration, routing changes, and failure recovery
+all need a design. Start with two fixed groups, then learn migration with writes
+paused, and finally consider online migration.
 
-## 分阶段的学习与验收
+## Staged Learning and Acceptance Checks
 
-| 阶段 | 要做的事情 | 怎样知道做成了 | 对应能力 |
+| Stage | Work to do | How to verify completion | Skills involved |
 |---|---|---|---|
-| 1：本轮起点 | 打包 JAR，启动三个独立进程，自动检查故障恢复 | 强杀主节点后仍能写，重启后原数据与新增数据在三份持久化状态中一致 | Java 工程、测试、CI、恢复 |
-| 2：运行环境 | Dockerfile、Compose、数据卷、健康检查、重启操作 | 新环境可以启动；重建容器后数据仍在 | 容器化、部署、DevOps |
-| 3：观察与测量 | 请求量、错误、延迟、选主和追赶进度 | 能解释服务在忙什么、慢在哪里 | Observability、性能分析 |
-| 4：版本与部署 | 自动交付版本包/镜像，再接明确的本机部署环境 | 部署指定版本后自动检查；失败有明确处理步骤 | Delivery、Deployment |
-| 5：分摊工作 | 固定两组 Raft、分片规则、路由器 | 两组分别接收不同 key，组内副本一致 | Sharding、Scalable Systems |
-| 6：证明扩展效果 | 固定工作负载，对比单组和双组 | 同时报告数据分布、吞吐、延迟、错误和资源条件 | Benchmarking、System Design |
-| 7：扩容搬家 | 数据迁移与路由切换 | 迁移后数据完整，失败后可恢复 | Rebalancing、系统演进 |
+| 1: starting point for this revision | Package a JAR, start three independent processes, and automatically check failure recovery | Writes still succeed after forcibly terminating the leader; after restart, original and new data agree across all three persisted states | Java engineering, testing, CI, recovery |
+| 2: runtime environment | Dockerfile, Compose, data volumes, health checks, restart operations | A new environment starts successfully; data survives container recreation | Containerization, deployment, DevOps |
+| 3: observation and measurement | Request volume, errors, latency, election and catch-up progress | Explain what keeps the service busy and where it is slow | Observability, performance analysis |
+| 4: versions and deployment | Automatically deliver versioned packages/images, then connect a defined local deployment environment | Automatically check a specified version after deployment; provide clear failure-handling steps | Delivery, deployment |
+| 5: sharing the work | Two fixed Raft groups, sharding rules, a router | Each group receives different keys, and replicas within each group agree | Sharding, scalable systems |
+| 6: demonstrating the scaling effect | Compare one group and two groups under a fixed workload | Report data distribution, throughput, latency, errors, and resource conditions together | Benchmarking, system design |
+| 7: moving data during expansion | Data migration and routing changes | Data remains complete after migration, and failures are recoverable | Rebalancing, system evolution |
 
-后面的功能会按阶段逐步实现，不在第一节同时引入全部工具。
+Later features will be implemented stage by stage, without introducing every
+tool in the first lesson.
 
-## 第一节：一条命令发生了什么
+## Lesson One: What One Command Does
 
-在项目根目录运行：
+Run from the project root:
 
 ```bash
 bash scripts/verify.sh
 ```
 
-先读这个脚本，它只有三项主要工作：
+Read this script first. It has only three main jobs:
 
 ```text
-运行已有的 23 项回归测试
+Run the existing 23 regression checks
           ↓
-将程序打包成 build/dist/raftkv.jar
+Package the program as build/dist/raftkv.jar
           ↓
-使用同一个 JAR 启动三个独立 JVM，检查强杀和恢复
+Start three independent JVMs from that same JAR and check forced termination and recovery
 ```
 
-JAR 可以理解成装好程序文件的包。运行它仍然需要 Java；
-它没有把整个操作系统和 Java 运行环境一起装进去。
-Docker 阶段会继续解决运行环境的一致性。
+A JAR is a package containing the program files. Running it still requires Java;
+it does not include an entire operating system and Java runtime. The Docker stage
+will address runtime-environment consistency.
 
-### 包装成品
+### Packaging the Artifact
 
-`scripts/package.sh` 做两件事：
+`scripts/package.sh` does two things:
 
-1. 用 `javac --release 17` 编译，限制字节码和标准库 API 的最低版本。
-2. 用 `jar` 把类文件装进一个包，并指定服务器入口 `NodeMain`。
+1. Compile with `javac --release 17` to constrain the minimum bytecode and
+   standard-library API version.
+2. Use `jar` to package the class files and specify `NodeMain` as the server entry
+   point.
 
-下面的命令只负责打包：
+The following command only builds the package:
 
 ```bash
 bash scripts/package.sh
 ```
 
-成品路径：`build/dist/raftkv.jar`。
+Artifact path: `build/dist/raftkv.jar`.
 
-### 验证成品
+### Verifying the Artifact
 
-`scripts/process-smoke.sh` 默认先编译，再执行检查工具；
-`verify.sh` 会指定 `RAFTKV_CLASSPATH=build/dist/raftkv.jar`，
-使检查工具和三个子进程都使用刚打包的 JAR，而不是另一份类文件。
+By default, `scripts/process-smoke.sh` compiles first and then runs the check tool.
+`verify.sh` specifies `RAFTKV_CLASSPATH=build/dist/raftkv.jar`, so the check tool
+and all three child processes use the newly packaged JAR instead of a separate
+set of class files.
 
-检查流程：
+Check sequence:
 
-1. 启动三个独立 Java 进程，每个进程使用不同端口和数据目录。
-2. 经真实 HTTP 保存、读取、修改、删除数据，并保存几个已知的参考值。
-3. 用 `destroyForcibly()` 强制结束当时的主节点进程。
-4. 等剩余多数重新选主，继续写入 25 条数据，并等待快照越过旧主节点的进度。
-5. 用原数据目录重启被杀节点，核对三份持久化状态的完整数据、执行进度和快照进度。
-6. 检查结束时自动关闭剩余子进程。
+1. Start three independent Java processes, each with a different port and data
+   directory.
+2. Save, read, update, and delete data over real HTTP, and retain several known
+   reference values.
+3. Use `destroyForcibly()` to terminate the current leader process forcibly.
+4. Wait for the remaining majority to elect a new leader, write another 25
+   records, and wait for the snapshot to advance beyond the old leader's progress.
+5. Restart the killed node with its original data directory, then compare the
+   complete data, applied progress, and snapshot progress in all three persisted
+   states.
+6. Automatically stop the remaining child processes when the check ends.
 
-DELETE 之后通过 GET 和最终数据状态检查“这个键确实不存在”。
-这样不会把“第一次删除成功但响应丢失，重试返回空值”误判为错误；
-当前系统仍不提供 exactly-once 请求去重。
+After DELETE, GET and the final data state verify that the key is absent. This
+avoids incorrectly treating a successful first deletion whose response was lost,
+followed by a retry returning null, as an error. The current system still does
+not provide exactly-once request deduplication.
 
-本机运行日志和数据保留在 `work/process-smoke-*`。
-遇到失败，终端会告诉你去哪个目录查每个节点的 stdout/stderr。
-检查使用单独临时目录，不删除之前手动启动集群的数据。
+Local logs and data remain in `work/process-smoke-*`. On failure, the terminal
+reports which directory contains each node's stdout/stderr. The check uses its own
+temporary directory and does not delete data from clusters previously started
+manually.
 
-这是进程终止与重启检查，不是物理断电，也不是任意网络分区检查。
+This checks process termination and restart, not physical power loss or arbitrary
+network partitions.
 
-## 同一套命令怎样进入 CI 和交付
+## How the Same Commands Support CI and Delivery
 
-`.github/workflows/test.yml` 在 push/PR 后，准备 Java 环境并调用同一个 `verify.sh`，
-再运行已有短基准。这样本机和 CI 使用相同的验收入口。
+After a push or PR, `.github/workflows/test.yml` prepares the Java environment,
+calls the same `verify.sh`, and then runs the existing short benchmark. Local and
+CI runs therefore use the same verification entry point.
 
-`.github/workflows/delivery.yml` 在手动触发或推送 `v*` 标签后验证并交付 JAR。
-下载产物名称包含源码提交标识，失败时不会进入上传成品步骤。
-这个工作流不部署服务；自动部署会在选定运行环境后单独学习。
+`.github/workflows/delivery.yml` verifies and delivers the JAR after a manual
+trigger or a pushed `v*` tag. The downloadable artifact's name includes the source
+commit identifier, and failures prevent the artifact-upload step. This workflow
+does not deploy the service; automatic deployment will be studied separately
+after a runtime environment is selected.
 
-GitHub 的[Java 工作流说明](https://docs.github.com/en/actions/tutorials/build-and-test-code/java-with-maven)
-也展示了“调用构建/测试命令，再上传构建产物”的流程；本项目保留纯 JDK 脚本，
-不需要为了使用 Actions 先改成 Maven。
+GitHub's [Java workflow guide](https://docs.github.com/en/actions/tutorials/build-and-test-code/java-with-maven)
+also demonstrates the flow of running build/test commands and then uploading
+build artifacts. This project retains pure-JDK scripts; using Actions does not
+require switching to Maven first.
 
-当前工作流是本地配置，是否在 GitHub 成功执行，需要实际推送和查看运行结果。
-先掌握本机流程，再验证托管工作流。
+The current workflows are local configuration. Confirming successful execution
+on GitHub requires actually pushing and reviewing the run results. Master the
+local flow first, then verify the hosted workflows.
 
-下一节将学习 [Docker Compose](https://docs.docker.com/compose/)：
-把服务、网络和数据卷写到一份配置里，让启动和停止更容易重复。
+The next lesson covers [Docker Compose](https://docs.docker.com/compose/): define
+services, networks, and data volumes in one configuration to make startup and
+shutdown easier to repeat.

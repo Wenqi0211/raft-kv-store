@@ -1,157 +1,208 @@
-# 从一个恢复失败开始理解 RaftKV
+# Understanding RaftKV Through a Recovery Failure
 
-这份说明对应本次实际代码和回归测试。阅读顺序是：先理解一个故障，
-再找出被破坏的规则，最后看测试如何证明修复有效。
+This walkthrough describes the actual code and regression tests in this revision.
+Start with a failure, identify the rule it violates, and then examine how the
+tests demonstrate that the fix works.
 
-## 先认识六个词
+## Six Terms to Know First
 
-把日志想象成一本按页编号的操作记录本。
+Think of the log as a notebook of operations, with numbered pages.
 
-| 代码里的词 | 可以怎样理解 |
+| Term in the code | How to understand it |
 |---|---|
-| `index` | 第几条操作记录，例如第 80 条 |
-| `term` | 第几轮选举的编号，帮助识别旧消息 |
-| `commitIndex` | 已确认可以执行到哪一条 |
-| `lastApplied` | 实际已经执行到哪一条 |
-| `snapshot` | 执行到某一条后，保存下来的完整数据状态 |
-| `nextIndex` | 主节点下一次准备给某个从节点发送哪一条 |
+| `index` | The position of an operation record, such as record 80 |
+| `term` | The election round number, which helps identify old messages |
+| `commitIndex` | The last record confirmed as safe to execute |
+| `lastApplied` | The last record actually executed |
+| `snapshot` | The complete data state saved after execution reaches a particular record |
+| `nextIndex` | The next record the leader plans to send to a particular follower |
 
-“确认可以执行”和“已经执行”是两件事。刚收到多数派确认时，
-后台线程可能还没来得及把操作真正应用到 Map，所以前两个进度不一定相等。
+Being confirmed as safe to execute and having already executed are separate
+states. When a majority has just acknowledged an operation, the background thread
+may not yet have applied it to the Map, so these two progress indexes can differ.
 
-## 1. 为什么落后的节点拿不到快照
+## 1. Why a Lagging Node Cannot Receive a Snapshot
 
-三个节点开始运行，暂时把一个从节点关掉。其余两个节点写入 80 条数据，
-并把旧日志压缩为快照。随后重启主节点，让集群重新选主，再恢复那个从节点。
+Start three nodes, then temporarily stop one follower. The remaining two nodes
+write 80 records and compact the old log into a snapshot. Next, restart the leader
+so the cluster elects a new one, then bring back the stopped follower.
 
-此时新主节点已经没有完整的旧日志，不能从第一条开始补。它需要发送快照，
-相当于说：“这是执行到第 80 条后的整本账，先接过去，再继续记后面的操作。”
+The new leader no longer has the complete old log, so it cannot catch the follower
+up from the first record. It needs to send a snapshot, effectively saying:
+"Here is the complete ledger after record 80 was executed. Take this first, then
+continue recording the later operations."
 
-原代码只有在 `nextIndex <= snapshotIndex` 时才发送快照，
-却又在复制失败时把 `nextIndex` 限制为最少 `snapshotIndex + 1`。
-这就像一扇门要求你站到第 80 级台阶以下才能进，另一个规则却禁止你走到第 81 级以下。
+The original code sent a snapshot only when `nextIndex <= snapshotIndex`, but
+also limited `nextIndex` to a minimum of `snapshotIndex + 1` when replication
+failed. This is like a door that requires you to stand below step 80 to enter,
+while another rule prevents you from going below step 81.
 
-修复后，失败回退允许跨过快照边界；下一轮复制看到旧日志已被压缩，便改发快照。
-回退仍不能越过本轮选主中已经确认匹配的进度，避免把真实进展抹掉。
+After the fix, failure backoff can cross the snapshot boundary. On the next
+replication attempt, the leader sees that the old log has been compacted and
+sends a snapshot instead. Backoff still cannot retreat past the progress already
+confirmed as matching during the current leadership term, so it does not erase
+real progress.
 
-为什么测试里必须重新选主？因为原主节点可能还记得那个从节点很早的进度，
-直接重启从节点时，它本来就会发送快照，反而掩盖漏洞。
+Why must the test elect a new leader? The original leader might still remember
+the follower's much earlier progress. If the follower were simply restarted,
+that leader would already send it a snapshot, hiding the bug.
 
-对应代码：`RaftNode.replicatePeer`。
-对应测试：`ClusterIntegrationTest.snapshotCatchup`。
-测试会核对三台机器的完整 Map、执行进度，以及恢复节点确实安装了快照。
+Relevant code: `RaftNode.replicatePeer`.
+Relevant test: `ClusterIntegrationTest.snapshotCatchup`.
+The test checks the complete Map and applied progress on all three nodes, and
+verifies that the recovering node actually installed a snapshot.
 
-## 2. 从节点为什么不能直接相信自己的日志尾巴
+## 2. Why a Follower Cannot Simply Trust Its Own Log Suffix
 
-假设从节点有 1～100 条日志，但新主节点这次只证明了 1～64 条与它一致。
-后面的 65～100 条可能是旧主节点留下的内容。
+Suppose a follower has log records 1-100, but the new leader has only established
+that records 1-64 match in this request. Records 65-100 may have been left by the
+old leader.
 
-即使新主节点说自己已经确认到第 100 条，从节点也只能先确认到第 64 条：
+Even if the new leader reports that it has committed through record 100, the
+follower can initially commit only through record 64:
 
 ```text
-新的确认边界 = min(主节点的确认边界，本次请求确认匹配的最后一条)
+new commit boundary = min(leader's commit boundary, last record matched by this request)
 ```
 
-原实现使用“本地最后一条”作为上限，可能把没有核对过的尾巴提前执行。
-修复后使用当前请求的匹配边界 `match`。
+The original implementation used the last local record as its upper bound,
+potentially executing an unverified suffix too early. The fix uses `match`, the
+boundary matched by the current request.
 
-另外，检查上一条记录不匹配时，先拒绝这次探测，不立即删除日志。
-只有收到实际冲突的新记录，才能从冲突位置删除未提交的旧后缀。
+Also, when the previous-record check fails, the follower first rejects that
+probe without immediately deleting its log. It may delete the old uncommitted
+suffix from the conflict position only when it receives an actual conflicting
+new record.
 
-对应测试：`appendDoesNotCommitUnmatchedSuffix`、
-`mismatchedPreviousEntryDoesNotDeleteLog`。
-前者不仅看数字，还真正执行确认过的前缀，检查错误后缀没有进入 Map。
+Relevant tests: `appendDoesNotCommitUnmatchedSuffix` and
+`mismatchedPreviousEntryDoesNotDeleteLog`.
+The first test checks more than index values: it actually executes the committed
+prefix and verifies that the incorrect suffix does not enter the Map.
 
-## 3. 为什么拒绝投票也要保存任期
+## 3. Why Rejecting a Vote Still Requires Persisting the Term
 
-节点原来处于第 4 轮选举，收到第 5 轮的请求。
-即使它认为对方的日志太旧、不应该投票，也已经知道“世界进入了第 5 轮”。
+A node in election term 4 receives a request for term 5. Even if it considers the
+requester's log too old to grant a vote, it has already learned that the current
+term is now 5.
 
-如果这个事实只留在内存里，节点重启后就会重新以为自己处于第 4 轮，
-可能接受本该过期的消息。
+If that fact stays only in memory, a restart makes the node believe it is in
+term 4 again, and it may accept messages that should be stale.
 
-修复将较高任期的保存集中到 `becomeFollowerLocked`，
-保证拒票、空心跳、拒绝追加等提前返回路径也保存任期。
-同一任期内降级则保留已经投出的票，不能因为变成从节点就再投一次。
+The fix centralizes persistence of higher terms in `becomeFollowerLocked`,
+ensuring that early returns for rejected votes, empty heartbeats, and rejected
+appends also persist the term. Stepping down within the same term retains the
+vote already cast; becoming a follower must not allow the node to vote again.
 
-测试会读取真实状态文件，并重新构造节点，验证它重启后仍拒绝旧任期请求。
+The tests read the real state file and reconstruct the node, verifying that it
+still rejects old-term requests after a restart.
 
-## 4. 为什么只按日志位置等待结果不够
+## 4. Why Waiting for a Log Position Alone Is Not Enough
 
-客户端 A 的请求暂时放在日志第 10 条，还没有得到多数派确认。
-主节点换了，新主节点把另一条请求 B 写到了同一个位置。
+Client A's request is temporarily at log position 10 and has not yet received a
+majority acknowledgment. Leadership changes, and the new leader writes a
+different request, B, at the same position.
 
-如果代码只记住“A 在等第 10 条”，执行 B 时就可能误告诉 A：“你的请求成功了。”
+If the code remembers only that A is waiting for position 10, executing B might
+incorrectly tell A: "Your request succeeded."
 
-修复后的等待记录同时包含位置、任期和请求 ID；执行时必须对应同一条请求。
-失去主节点身份或记录被覆盖时，旧请求结束等待，返回“结果未知”。
+After the fix, a pending request records its position, term, and request ID;
+execution must match the same request. When leadership is lost or the record is
+overwritten, the old request stops waiting and returns an unknown outcome.
 
-“结果未知”不等于“肯定没有写进去”。超时前的请求可能稍后提交；
-当前项目没有跨重启的请求去重，不能声称 exactly-once。
+An unknown outcome does not mean that the write definitely did not happen. A
+request that timed out may still commit later. This project does not deduplicate
+requests across restarts, so it cannot claim exactly-once execution.
 
-对应测试：`overwrittenRequestCannotSucceed`。
-测试让原请求等待，再用新主节点的另一条请求替换并执行，检查原客户端没有收到成功。
+Relevant test: `overwrittenRequestCannotSucceed`.
+The test leaves the original request waiting, replaces it with a different
+request from a new leader, executes that request, and verifies that the original
+client does not receive a success response.
 
-## 5. 为什么安装快照时要检查边界
+## 5. Why Installing a Snapshot Requires Checking the Boundary
 
-快照描述的是执行到某个位置后的状态。保留旧后缀之前，需要确认本地在这个位置
-有同样的任期：位置和任期都相同，才能认为它们来自同一段历史。
+A snapshot describes the state after execution reaches a particular position.
+Before retaining the old suffix, the node must confirm that its local record at
+that position has the same term. Only a matching position and term establish
+that they belong to the same history.
 
-如果边界不匹配，就丢弃不兼容的未提交后缀；如果冲突碰到已提交记录，则拒绝。
-已经执行过更晚记录的节点，也不能因为收到一份延迟的旧快照就把状态倒回去。
+If the boundary does not match, the node discards the incompatible uncommitted
+suffix. If the conflict reaches a committed record, it rejects the snapshot.
+A node that has already applied later records must also avoid rolling its state
+back when it receives a delayed older snapshot.
 
-对应测试分别覆盖保留后缀、丢弃后缀、拒绝冲突的已提交边界、拒绝旧状态回滚。
-它们还会继续追加或执行后面的记录，检查节点是否仍然可用。
+The corresponding tests cover retaining the suffix, discarding the suffix,
+rejecting a conflicting committed boundary, and rejecting rollback to older
+state. They also append or execute subsequent records to check that the node
+remains usable.
 
-## 6. 为什么写文件之后，还要 force 和原子替换
+## 6. Why Writing the File Also Requires Force and Atomic Replacement
 
-写文件可以分成三层：
+Writing the file involves three layers:
 
-1. Java 对象流里可能还有没有交出去的缓冲数据，所以先 `flush`。
-2. 操作系统可能暂时把数据留在缓存里，所以对临时文件执行 `force(true)`。
-3. 用原子替换安装新文件，再同步所在目录，保存文件名替换的结果。
+1. The Java object stream may still hold buffered data, so call `flush` first.
+2. The operating system may temporarily keep data in its cache, so call
+   `force(true)` on the temporary file.
+3. Install the new file with an atomic replacement, then synchronize its
+   directory to persist the filename replacement.
 
-这样做是为了避免正常保存过程中留下半个状态文件。
-临时文件使用唯一名字，失败时清理；损坏状态文件会明确报错，不偷偷当成空数据库。
+These steps aim to avoid leaving a partially written state file during normal
+saves. Temporary files have unique names and are cleaned up on failure. A corrupt
+state file produces an explicit error instead of silently becoming an empty
+database.
 
-保存失败时，还有一个容易漏掉的问题：内存可能已经改变。
-如果节点继续确认后续请求，主节点可能把这些未确认落盘的数据也算作有效副本。
-因此现在保存失败会停止调度，并拒绝所有新的 Raft RPC，直到从磁盘重新构造节点。
+A failed save introduces another easily missed problem: memory may already have
+changed. If the node continues acknowledging later requests, the leader may
+count data whose persistence has not been confirmed as a valid replica. A failed
+save therefore now stops scheduling and rejects all new Raft RPCs until the node
+is reconstructed from disk.
 
-对应测试：`PersistentStoreTest` 和 `failedPersistenceStopsProtocolResponses`。
-故障注入会把目标文件改成无法替换的非空目录，让写盘真的失败，
-然后检查节点不能继续确认只在内存里的数据。
+Relevant tests: `PersistentStoreTest` and
+`failedPersistenceStopsProtocolResponses`.
+Fault injection replaces the target file with a nonempty directory that cannot
+be replaced, causing a real write failure. The tests then verify that the node
+cannot continue acknowledging data held only in memory.
 
-这些调用仍依赖文件系统和设备。当前测试没有真的断电，也没有逐级同步新建数据目录的所有祖先目录。
-不支持目录同步或原子替换的平台会明确报错。整状态序列化也会带来明显的写入成本，
-所以这一版不以高吞吐为卖点。
+These calls still depend on the filesystem and device. The current tests do not
+cut physical power or synchronize every ancestor of a newly created data
+directory. Platforms without directory synchronization or atomic replacement
+support fail explicitly. Whole-state serialization also has a substantial write
+cost, so this version does not claim high throughput.
 
-## 怎样自己复现和阅读
+## How to Reproduce and Read the Code
 
-在项目根目录运行：
+Run from the project root:
 
 ```bash
 bash scripts/test.sh
 bash scripts/benchmark.sh --duration 1 --clients 2 --keys 100 --snapshot-threshold 10
 ```
 
-测试分三层：
+The tests have three layers:
 
-- 真实文件测试：检查保存、读取、损坏和失败处理。
-- 确定性协议测试：构造明确日志历史，直接发送 RPC；用少量反射驱动内部状态机，
-  避免随机选举时间影响断言。
-- HTTP 集群测试：在一个 JVM 中启动节点，经真实 HTTP 通信，验证恢复后的数据。
+- Real-file tests check saving, loading, corruption, and failure handling.
+- Deterministic protocol tests construct explicit log histories and send RPCs
+  directly. They use a small amount of reflection to drive the internal state
+  machine, keeping random election timing from affecting assertions.
+- HTTP cluster tests start nodes in one JVM, communicate over real HTTP, and
+  verify the recovered data.
 
-HTTP 测试使用对象 stop/start，没有杀掉独立进程，也没有模拟任意网络分区。
-丢失多数派的测试证明少数派不能成功确认新写入，但不能替代全面的网络故障测试。
-GitHub Actions 已配置 JDK 17/21 检查；是否在托管环境通过，需要看实际运行结果。
+The HTTP tests use object stop/start operations. They do not kill independent
+processes or simulate arbitrary network partitions. The majority-loss test
+demonstrates that a minority cannot successfully acknowledge a new write, but it
+does not replace comprehensive network-failure testing. GitHub Actions is
+configured for JDK 17/21 checks; actual hosted run results determine whether those
+checks pass in that environment.
 
-建议先读 `snapshotCatchup`，再读 `replicatePeer`，最后自己解释：
-为什么“启动成功”不能证明“数据恢复成功”？
+Read `snapshotCatchup` first, then `replicatePeer`, and finally explain to
+yourself why successful startup does not prove successful data recovery.
 
-协议依据是 [Raft 论文](https://raft.github.io/raft.pdf)的 Figure 2 和 Section 7。
-我们实现并测试这些规则，仍不能由有限用例推导所有并发执行都已经被证明正确。
+The protocol rules come from Figure 2 and Section 7 of the
+[Raft paper](https://raft.github.io/raft.pdf). Implementing and testing these rules
+still does not let a finite set of cases prove that every concurrent execution
+is correct.
 
-在后续的工程化第一步中，新增了 `ProcessClusterCheck`，会真正启动三个独立 JVM、
-强杀主节点进程并验证恢复。这与上面的同 JVM 测试是两种不同层次的检查。
-完整的打包、验证及后续扩展路线见 [scalability-and-delivery.md](scalability-and-delivery.md)。
+The subsequent first engineering step added `ProcessClusterCheck`, which starts
+three independent JVMs, forcibly terminates the leader process, and verifies
+recovery. This and the single-JVM tests above provide two different levels of
+checking. See [scalability-and-delivery.md](scalability-and-delivery.md) for the
+complete packaging and verification flow and the later expansion roadmap.

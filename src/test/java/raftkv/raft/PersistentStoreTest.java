@@ -148,7 +148,7 @@ public final class PersistentStoreTest {
     }
 
     private static PersistentState sampleState(long term) {
-        Snapshot snapshot = new Snapshot(4, 2, Map.of("saved", "before snapshot", "unicode", "你好"));
+        Snapshot snapshot = new Snapshot(4, 2, Map.of("saved", "before snapshot", "unicode", "\u4f60\u597d"));
         return new PersistentState(term, "n2", 4, 2, 6, 5,
                 List.of(new LogEntry(5, term, Command.put("key", "value")),
                         new LogEntry(6, term, Command.delete("saved"))), snapshot);

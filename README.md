@@ -57,7 +57,11 @@ zero failures, errors or skips: 100 seeded five-node fault/recovery scenarios,
 six focused capability cases and 21 storage/client/timer/configuration cases.
 The capability class took 294.486 seconds. Exact XML, a summary, and an archive
 of the 64 tested source/build/script files with matching SHA256 hashes are in
-`reports/final-capability-100/`. The three real-gRPC integration cases passed
+`reports/final-capability-100/`. For English-only source presentation, one
+Unicode test literal is written with equivalent Java escapes. The original and
+published archive hashes are recorded in that directory's
+`publication-normalization.json`; measured results are unchanged.
+The three real-gRPC integration cases passed
 separately; their XML is retained in `reports/network-final/`.
 
 ## Measure five-node gRPC writes
