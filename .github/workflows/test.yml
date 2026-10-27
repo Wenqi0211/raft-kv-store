@@ -1,0 +1,28 @@
+name: Java regression tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        java: ['17', '21']
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - name: Verify regressions, separate processes, and the delivery package
+        run: bash scripts/verify.sh
+      - name: Run benchmark with result verification
+        run: bash scripts/benchmark.sh --duration 1 --clients 2 --keys 100 --snapshot-threshold 10

@@ -1,0 +1,13 @@
+sequence,client,key,start_offset_nanos,latency_nanos,success,response_success,message
+1,0,k0,598625,74457459,true,true,"ok"
+2,1,k1,613667,74524458,true,true,"ok"
+3,0,k2,75415209,253002125,true,true,"ok"
+4,1,k3,75415209,253028541,true,true,"ok"
+5,0,k4,328446167,216086708,true,true,"ok"
+6,1,k5,328463500,216069334,true,true,"ok"
+7,1,k7,544555292,141558875,true,true,"ok"
+8,0,k6,544555250,244587917,true,true,"ok"
+9,1,k9,686183084,293935750,true,true,"ok"
+10,0,k8,789168584,190894208,true,true,"ok"
+11,0,k10,980089959,162183500,true,true,"ok"
+12,1,k11,980137375,223513500,true,true,"ok"

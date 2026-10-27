@@ -1,0 +1,7 @@
+{
+  "baselineSourceSha256": "738d42c63dc9f6cf1f53431a5d4466f2a9c9f36d255fc9cdc9c1d8d338d00574",
+  "optimizedSourceSha256": "1c89edfbc3cd4d8e7ff5735755c6582b2daac7fc9b526967ca5b36f6dd558b46",
+  "change": "64KiB serialization buffering only; out.flush, file force(true), atomic replacement, directory preflight/post-replacement force(true) all retained",
+  "baselineStudy": "reports/grpc-baseline-30s/summary.json (invalid due to failed requests; not an improvement denominator)",
+  "profile": "reports/persistence-profile-baseline/phases.csv"
+}

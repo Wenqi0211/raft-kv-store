@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="raftkv.testing.RaftCapabilityTest" time="328.416" tests="106" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="surefire.reportsDirectory" value="reports/seeded-100"/>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured/target/test-classes:/Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured/target/classes:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-netty-shaded/1.68.1/grpc-netty-shaded-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-util/1.68.1/grpc-util-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/codehaus/mojo/animal-sniffer-annotations/1.24/animal-sniffer-annotations-1.24.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-core/1.68.1/grpc-core-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/code/gson/gson/2.11.0/gson-2.11.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-context/1.68.1/grpc-context-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/guava/guava/33.2.1-android/guava-33.2.1-android.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/errorprone/error_prone_annotations/2.28.0/error_prone_annotations-2.28.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-api/1.68.1/grpc-api-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-protobuf/1.68.1/grpc-protobuf-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/api/grpc/proto-google-common-protos/2.41.0/proto-google-common-protos-2.41.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-protobuf-lite/1.68.1/grpc-protobuf-lite-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-stub/1.68.1/grpc-stub-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/protobuf/protobuf-java/3.25.5/protobuf-java-3.25.5.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar:"/>
+    <property name="java.vm.vendor" value="Microsoft"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://www.microsoft.com"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.boot.library.path" value="/Users/wenqi/Library/Java/JavaVirtualMachines/ms-17.0.17/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured/target/surefire/surefirebooter-20261024193517388_3.jar /Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured/target/surefire 2026-10-24T19-35-17_353-jvmRun1 surefire-20261024193517388_1tmp surefire_0-20261024193517388_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="test" value="RaftCapabilityTest"/>
+    <property name="surefire.test.class.path" value="/Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured/target/test-classes:/Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured/target/classes:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-netty-shaded/1.68.1/grpc-netty-shaded-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-util/1.68.1/grpc-util-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/codehaus/mojo/animal-sniffer-annotations/1.24/animal-sniffer-annotations-1.24.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-core/1.68.1/grpc-core-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/code/gson/gson/2.11.0/gson-2.11.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-context/1.68.1/grpc-context-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/guava/guava/33.2.1-android/guava-33.2.1-android.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/errorprone/error_prone_annotations/2.28.0/error_prone_annotations-2.28.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-api/1.68.1/grpc-api-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-protobuf/1.68.1/grpc-protobuf-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/api/grpc/proto-google-common-protos/2.41.0/proto-google-common-protos-2.41.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-protobuf-lite/1.68.1/grpc-protobuf-lite-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/io/grpc/grpc-stub/1.68.1/grpc-stub-1.68.1.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/com/google/protobuf/protobuf-java/3.25.5/protobuf-java-3.25.5.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar:/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/wenqi"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-10-21"/>
+    <property name="java.home" value="/Users/wenqi/Library/Java/JavaVirtualMachines/ms-17.0.17/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured/target/surefire/surefirebooter-20261024193517388_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.17+10-LTS"/>
+    <property name="user.name" value="wenqi"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="15.4.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="raft.seed.count" value="100"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Microsoft-12574438"/>
+    <property name="localRepository" value="/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2"/>
+    <property name="java.vendor.url.bug" value="https://github.com/microsoft/openjdk/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/3b/p5bxm22j22b6l_sr7x0dp1vh0000gn/T/"/>
+    <property name="java.version" value="17.0.17"/>
+    <property name="user.dir" value="/Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/wenqi/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Microsoft"/>
+    <property name="java.vm.version" value="17.0.17+10-LTS"/>
+    <property name="java.specification.maintenance.version" value="1"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="maven.repo.local" value="/Users/wenqi/Documents/Codex/2026-10-17/zhe/order-fulfillment-platform/.tooling/m2"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="duplicateAndStaleCommandsDoNotRepeatEffectsAndSessionsSurviveSnapshot" classname="raftkv.testing.RaftCapabilityTest" time="0.022"/>
+  <testcase name="allFiveNodesRestoreDeduplicationAfterDiskRestartAndCompaction" classname="raftkv.testing.RaftCapabilityTest" time="2.976"/>
+  <testcase name="delayedOlderVoteIsDeliveredAfterNewerVoteAndCannotRollBackTerm" classname="raftkv.testing.RaftCapabilityTest" time="0.157"/>
+  <testcase name="concurrentGetPutDeleteHistoryHasAValidLinearization" classname="raftkv.testing.RaftCapabilityTest" time="0.979"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[1]" classname="raftkv.testing.RaftCapabilityTest" time="2.798"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[2]" classname="raftkv.testing.RaftCapabilityTest" time="3.044"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[3]" classname="raftkv.testing.RaftCapabilityTest" time="3.431"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[4]" classname="raftkv.testing.RaftCapabilityTest" time="3.14"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[5]" classname="raftkv.testing.RaftCapabilityTest" time="3.747"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[6]" classname="raftkv.testing.RaftCapabilityTest" time="3.864"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[7]" classname="raftkv.testing.RaftCapabilityTest" time="3.354"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[8]" classname="raftkv.testing.RaftCapabilityTest" time="3.317"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[9]" classname="raftkv.testing.RaftCapabilityTest" time="3.43"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[10]" classname="raftkv.testing.RaftCapabilityTest" time="3.163"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[11]" classname="raftkv.testing.RaftCapabilityTest" time="2.967"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[12]" classname="raftkv.testing.RaftCapabilityTest" time="3.092"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[13]" classname="raftkv.testing.RaftCapabilityTest" time="5.811"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[14]" classname="raftkv.testing.RaftCapabilityTest" time="4.745"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[15]" classname="raftkv.testing.RaftCapabilityTest" time="3.958"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[16]" classname="raftkv.testing.RaftCapabilityTest" time="2.8"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[17]" classname="raftkv.testing.RaftCapabilityTest" time="3.106"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[18]" classname="raftkv.testing.RaftCapabilityTest" time="2.786"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[19]" classname="raftkv.testing.RaftCapabilityTest" time="2.673"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[20]" classname="raftkv.testing.RaftCapabilityTest" time="2.798"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[21]" classname="raftkv.testing.RaftCapabilityTest" time="2.781"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[22]" classname="raftkv.testing.RaftCapabilityTest" time="4.114"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[23]" classname="raftkv.testing.RaftCapabilityTest" time="2.954"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[24]" classname="raftkv.testing.RaftCapabilityTest" time="3.018"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[25]" classname="raftkv.testing.RaftCapabilityTest" time="2.916"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[26]" classname="raftkv.testing.RaftCapabilityTest" time="2.605"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[27]" classname="raftkv.testing.RaftCapabilityTest" time="4.092"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[28]" classname="raftkv.testing.RaftCapabilityTest" time="2.725"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[29]" classname="raftkv.testing.RaftCapabilityTest" time="3.944"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[30]" classname="raftkv.testing.RaftCapabilityTest" time="3.746"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[31]" classname="raftkv.testing.RaftCapabilityTest" time="2.871"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[32]" classname="raftkv.testing.RaftCapabilityTest" time="2.876"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[33]" classname="raftkv.testing.RaftCapabilityTest" time="2.685"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[34]" classname="raftkv.testing.RaftCapabilityTest" time="2.952"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[35]" classname="raftkv.testing.RaftCapabilityTest" time="2.981"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[36]" classname="raftkv.testing.RaftCapabilityTest" time="3.168"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[37]" classname="raftkv.testing.RaftCapabilityTest" time="3.542"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[38]" classname="raftkv.testing.RaftCapabilityTest" time="2.874"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[39]" classname="raftkv.testing.RaftCapabilityTest" time="3.024"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[40]" classname="raftkv.testing.RaftCapabilityTest" time="3.318"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[41]" classname="raftkv.testing.RaftCapabilityTest" time="2.931"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[42]" classname="raftkv.testing.RaftCapabilityTest" time="3.068"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[43]" classname="raftkv.testing.RaftCapabilityTest" time="2.903"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[44]" classname="raftkv.testing.RaftCapabilityTest" time="3.501"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[45]" classname="raftkv.testing.RaftCapabilityTest" time="2.875"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[46]" classname="raftkv.testing.RaftCapabilityTest" time="2.698"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[47]" classname="raftkv.testing.RaftCapabilityTest" time="2.823"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[48]" classname="raftkv.testing.RaftCapabilityTest" time="3.071"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[49]" classname="raftkv.testing.RaftCapabilityTest" time="2.944"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[50]" classname="raftkv.testing.RaftCapabilityTest" time="3.017"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[51]" classname="raftkv.testing.RaftCapabilityTest" time="3.347"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[52]" classname="raftkv.testing.RaftCapabilityTest" time="2.708"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[53]" classname="raftkv.testing.RaftCapabilityTest" time="3.628"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[54]" classname="raftkv.testing.RaftCapabilityTest" time="3.023"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[55]" classname="raftkv.testing.RaftCapabilityTest" time="3.121"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[56]" classname="raftkv.testing.RaftCapabilityTest" time="3.741"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[57]" classname="raftkv.testing.RaftCapabilityTest" time="3.258"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[58]" classname="raftkv.testing.RaftCapabilityTest" time="3.2"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[59]" classname="raftkv.testing.RaftCapabilityTest" time="3.259"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[60]" classname="raftkv.testing.RaftCapabilityTest" time="3.303"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[61]" classname="raftkv.testing.RaftCapabilityTest" time="3.019"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[62]" classname="raftkv.testing.RaftCapabilityTest" time="2.949"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[63]" classname="raftkv.testing.RaftCapabilityTest" time="3.103"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[64]" classname="raftkv.testing.RaftCapabilityTest" time="2.935"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[65]" classname="raftkv.testing.RaftCapabilityTest" time="2.759"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[66]" classname="raftkv.testing.RaftCapabilityTest" time="3.157"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[67]" classname="raftkv.testing.RaftCapabilityTest" time="4.422"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[68]" classname="raftkv.testing.RaftCapabilityTest" time="3.209"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[69]" classname="raftkv.testing.RaftCapabilityTest" time="3.037"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[70]" classname="raftkv.testing.RaftCapabilityTest" time="2.999"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[71]" classname="raftkv.testing.RaftCapabilityTest" time="2.898"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[72]" classname="raftkv.testing.RaftCapabilityTest" time="2.978"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[73]" classname="raftkv.testing.RaftCapabilityTest" time="3.006"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[74]" classname="raftkv.testing.RaftCapabilityTest" time="2.975"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[75]" classname="raftkv.testing.RaftCapabilityTest" time="3.279"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[76]" classname="raftkv.testing.RaftCapabilityTest" time="3.23"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[77]" classname="raftkv.testing.RaftCapabilityTest" time="3.03"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[78]" classname="raftkv.testing.RaftCapabilityTest" time="3.857"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[79]" classname="raftkv.testing.RaftCapabilityTest" time="2.793"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[80]" classname="raftkv.testing.RaftCapabilityTest" time="2.894"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[81]" classname="raftkv.testing.RaftCapabilityTest" time="2.785"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[82]" classname="raftkv.testing.RaftCapabilityTest" time="3.099"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[83]" classname="raftkv.testing.RaftCapabilityTest" time="2.927"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[84]" classname="raftkv.testing.RaftCapabilityTest" time="3.194"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[85]" classname="raftkv.testing.RaftCapabilityTest" time="3.385"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[86]" classname="raftkv.testing.RaftCapabilityTest" time="3.119"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[87]" classname="raftkv.testing.RaftCapabilityTest" time="3.572"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[88]" classname="raftkv.testing.RaftCapabilityTest" time="3.178"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[89]" classname="raftkv.testing.RaftCapabilityTest" time="2.849"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[90]" classname="raftkv.testing.RaftCapabilityTest" time="4.022"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[91]" classname="raftkv.testing.RaftCapabilityTest" time="3.329"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[92]" classname="raftkv.testing.RaftCapabilityTest" time="2.894"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[93]" classname="raftkv.testing.RaftCapabilityTest" time="3.089"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[94]" classname="raftkv.testing.RaftCapabilityTest" time="3.061"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[95]" classname="raftkv.testing.RaftCapabilityTest" time="2.968"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[96]" classname="raftkv.testing.RaftCapabilityTest" time="2.669"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[97]" classname="raftkv.testing.RaftCapabilityTest" time="3.344"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[98]" classname="raftkv.testing.RaftCapabilityTest" time="2.873"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[99]" classname="raftkv.testing.RaftCapabilityTest" time="2.742"/>
+  <testcase name="seededFiveNodeLossRestartAndSnapshotRecovery()[100]" classname="raftkv.testing.RaftCapabilityTest" time="2.968"/>
+  <testcase name="minorityCannotAcknowledgeStaleReadWhileMajorityMakesProgress" classname="raftkv.testing.RaftCapabilityTest" time="5.776"/>
+  <testcase name="historyCheckerRejectsRealTimeContradictionsAndAllowsConcurrentReadBeforeWrite" classname="raftkv.testing.RaftCapabilityTest" time="0.002"/>
+</testsuite>

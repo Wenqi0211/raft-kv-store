@@ -1,0 +1,30 @@
+# Build output
+build/
+out/
+target/
+
+# Runtime and benchmark data
+work/
+*.log
+
+# IDE metadata
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+
+
+.m2/
+
+# Local cluster state and profiling dumps (keep JSON/CSV test evidence)
+reports/**/data/
+reports/**/*.bin
+*.hprof
+
+# Local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key

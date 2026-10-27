@@ -1,0 +1,61 @@
+{
+  "completed_at_utc": "2026-10-25T03:21:56.279570+00:00",
+  "passed": true,
+  "java_version": "17.0.17",
+  "junit_cases": 127,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "randomized_five_node_recovery_scenarios": 100,
+  "focused_capability_cases": 6,
+  "other_selected_unit_cases": 21,
+  "suite_time_seconds": 294.931,
+  "suites": [
+    {
+      "tests": 106,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "name": "raftkv.testing.RaftCapabilityTest",
+      "seconds": 294.486
+    },
+    {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "name": "raftkv.raft.BufferedPersistenceTest",
+      "seconds": 0.056
+    },
+    {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "name": "raftkv.server.GrpcNodeConfigTest",
+      "seconds": 0.02
+    },
+    {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "name": "raftkv.raft.ElectionTimingTest",
+      "seconds": 0.001
+    },
+    {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "name": "raftkv.client.GrpcKvClientRetryTest",
+      "seconds": 0.368
+    }
+  ],
+  "source_manifest_file": "source-manifest.json",
+  "source_manifest_sha256": "0e52779f2b8335cf3d84380ef3980d5e92be2ea656c0d5be8ba7c79be076cbbd",
+  "tested_source_archive_sha256": "d30c843b46c79d4833d88d2f0ee70de0c19526a8299ebcaae40dc4f6d31c8adb",
+  "current_source_matches_archived_manifest": true,
+  "archived_source_file_count": 64,
+  "scope": "100 separately seeded five-node loss/restart/snapshot-recovery scenarios plus six focused capability tests and 21 supporting storage/client/timer/config tests; not 100 executions of the entire JUnit suite. Pure/simulated tests are separate from the 3 real-gRPC integration tests and 3 real performance trials."
+}

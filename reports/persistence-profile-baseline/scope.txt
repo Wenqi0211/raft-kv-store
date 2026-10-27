@@ -1,0 +1,1 @@
+Isolated persistence diagnostic using representative 1000-key/64-byte-value snapshots and four sessions. Six interleaved trials per mode. Both modes force the temporary data file, atomically replace the state file and force its directory; both also retain the existing directory preflight force. This is not a Raft client performance result.

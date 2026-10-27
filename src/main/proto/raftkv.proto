@@ -1,0 +1,14 @@
+syntax = "proto3";
+package raftkv;
+import "google/protobuf/wrappers.proto";
+
+// This local compatibility transport uses a protobuf envelope containing existing
+// Java DTOs. It is real gRPC/HTTP2, but is Java-only and must remain on trusted
+// loopback: it is not a public, authenticated, cross-language protobuf API.
+service RaftService {
+  rpc RequestVote(google.protobuf.BytesValue) returns (google.protobuf.BytesValue);
+  rpc AppendEntries(google.protobuf.BytesValue) returns (google.protobuf.BytesValue);
+  rpc InstallSnapshot(google.protobuf.BytesValue) returns (google.protobuf.BytesValue);
+  rpc Client(google.protobuf.BytesValue) returns (google.protobuf.BytesValue);
+  rpc Status(google.protobuf.BytesValue) returns (google.protobuf.BytesValue);
+}

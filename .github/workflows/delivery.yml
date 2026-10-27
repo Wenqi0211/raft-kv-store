@@ -1,0 +1,35 @@
+name: Delivery - verified JAR
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Test and package Java 17 JAR
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Run regression tests, process smoke check, and packaging
+        run: bash scripts/verify.sh
+      # A downloadable build artifact is the delivery output. No deployment or
+      # public GitHub Release is performed by this workflow.
+      - name: Upload tested JAR
+        uses: actions/upload-artifact@v7
+        with:
+          name: raftkv-jar-${{ github.sha }}
+          path: build/dist/raftkv.jar
+          if-no-files-found: error
+          retention-days: 14

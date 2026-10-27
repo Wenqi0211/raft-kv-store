@@ -1,0 +1,35 @@
+{
+  "javaVersion": "17.0.17",
+  "seededFaultRecoveryScenarios": 100,
+  "additionalCapabilityJUnitCases": 6,
+  "totalCapabilityJUnitCases": 106,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "durationSeconds": 328.416,
+  "description": "100 seeded five-node scenarios, not 100 executions of the entire JUnit suite",
+  "suiteXML": "/Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured/reports/seeded-100/TEST-raftkv.testing.RaftCapabilityTest.xml",
+  "log": "/Users/wenqi/Documents/Codex/2026-10-17/zhe/raftkv-measured/reports/seeded-100.log",
+  "TEST-raftkv.rpc.GrpcTransportTest.xml": {
+    "{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation": "https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd",
+    "version": "3.0.2",
+    "name": "raftkv.rpc.GrpcTransportTest",
+    "time": "13.761",
+    "tests": "2",
+    "errors": "0",
+    "skipped": "0",
+    "failures": "0",
+    "flakes": "0"
+  },
+  "TEST-raftkv.testing.LegacyRegressionJUnitTest.xml": {
+    "{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation": "https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd",
+    "version": "3.0.2",
+    "name": "raftkv.testing.LegacyRegressionJUnitTest",
+    "time": "14.386",
+    "tests": "3",
+    "errors": "0",
+    "skipped": "0",
+    "failures": "0",
+    "flakes": "0"
+  }
+}
