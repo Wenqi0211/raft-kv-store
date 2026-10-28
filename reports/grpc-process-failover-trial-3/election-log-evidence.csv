@@ -1,0 +1,6 @@
+node,current_term,voted_for,snapshot_index,last_applied,last_log_index,last_log_term
+n1,11,n1,165,165,165,11
+n2,11,n1,160,163,165,11
+n3,1,n3,154,154,156,1
+n4,11,n4,154,161,165,11
+n5,11,n1,157,160,165,11

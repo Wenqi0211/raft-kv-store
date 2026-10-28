@@ -22,6 +22,10 @@ reports/**/data/
 reports/**/*.bin
 *.hprof
 
+# Python report-verifier cache
+__pycache__/
+*.pyc
+
 # Local credentials
 .env
 .env.*

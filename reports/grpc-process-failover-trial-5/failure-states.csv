@@ -1,0 +1,6 @@
+node,term,last_applied,snapshot_index,retry_key_present,cached_original_delete_result,replacement_put_in_retained_log_or_session,state_file_sha256
+n1,9,151,144,false,true,false,df0093a7909370e7200c2012b11a1ec26db685e9e389c9c168cea41fb9da8bb4
+n2,1,151,144,false,true,false,a8d5443fb92735e33f435d275d26a8138da3631be10918e46e3d173ec94d1c11
+n3,9,153,144,false,true,false,4592d78de6bfe398d8f7c0faaff24566b2ad77c1db367ba4225ef71e4e99b427
+n4,9,151,146,false,true,false,c834ae612b8f525e03fd5788a6432224733a6d7dbf9eec063c734c01ce36be0b
+n5,9,151,146,false,true,false,8cc4cdcfccf510898f75b0da9b9f9589ec0eb15a2acc75d6a31c75fd473d822b

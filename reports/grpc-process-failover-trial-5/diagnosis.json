@@ -1,0 +1,21 @@
+{
+  "valid_measurement": false,
+  "diagnosis": "The replacement PUT explicitly returned success=false after exhausting its 10-second logical request budget; last response was not leader. The strict harness propagated that original failure immediately. This final-format attempt is retained and excluded from passing verification.",
+  "observed_failure": "java.util.concurrent.ExecutionException: java.lang.IllegalStateException: Wrong response: ClientCommandResponse[success=false, value=null, message=Logical request deadline exceeded; command outcome unknown; last error: not leader, leaderId=null, leaderUrl=grpc://127.0.0.1:49214]; expected after-crash",
+  "partial_measured_requests": 91,
+  "partial_failed_measured_requests": 8,
+  "final_terms": {
+    "n1": 9,
+    "n2": 1,
+    "n3": 9,
+    "n4": 9,
+    "n5": 9
+  },
+  "replacement_put_seen_in_retained_log_or_session": false,
+  "input_sha256": {
+    "summary.json": "0040dff30a5ccb8b760ecf3243985b3115e8b48ccaa32944ac4ee4e7dae55519",
+    "requests.csv": "2d754c9f296f9cb29e403b340d6d22d0e006e488bdf42e2ff0dbbc11df9021ea",
+    "events.csv": "3770cb14c0db45a29428c115739092a1cf1590514773fe5185cfeff1fa971fe5",
+    "failure-states.csv": "0964b5082b1ddc93cd2a133cf1b12d994084eeb22ab7128768b554781f0944bd"
+  }
+}

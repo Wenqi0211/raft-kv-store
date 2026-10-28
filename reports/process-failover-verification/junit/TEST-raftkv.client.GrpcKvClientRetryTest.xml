@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="raftkv.client.GrpcKvClientRetryTest" time="0.36" tests="13" errors="0" skipped="0" failures="0" flakes="0">
+  <testcase name="lateSuccessAfterBudgetIsReportedAsUnknownInsteadOfUnboundedSuccess" classname="raftkv.client.GrpcKvClientRetryTest" time="0.055" />
+  <testcase name="retriesRedirectAndIoWithoutChangingLogicalIdentityOrPayload" classname="raftkv.client.GrpcKvClientRetryTest" time="0.034" />
+  <testcase name="staleAndConflictingMetadataAreTerminalAndDoNotWasteRetryBudget" classname="raftkv.client.GrpcKvClientRetryTest" time="0.0" />
+  <testcase name="closedClientAndUnexpectedExceptionsStillCountFailedLogicalCalls" classname="raftkv.client.GrpcKvClientRetryTest" time="0.001" />
+  <testcase name="redirectsOutsideFixedMembershipAreNotFollowed" classname="raftkv.client.GrpcKvClientRetryTest" time="0.0" />
+  <testcase name="eachRpcGetsOnlyRemainingBudgetAndThatBudgetShrinks" classname="raftkv.client.GrpcKvClientRetryTest" time="0.162" />
+  <testcase name="interruptionFromRpcPreservesFlagAndStopsImmediately" classname="raftkv.client.GrpcKvClientRetryTest" time="0.0" />
+  <testcase name="repeatedNotLeaderRepliesFailWithinTotalBudgetInsteadOfTwoArbitraryRounds" classname="raftkv.client.GrpcKvClientRetryTest" time="0.097" />
+  <testcase name="automaticOperationsShareOneClientAndAdvanceSequenceOnlyBetweenCalls" classname="raftkv.client.GrpcKvClientRetryTest" time="0.002" />
+  <testcase name="alreadyInterruptedCallerDoesNotSendAnyRpc" classname="raftkv.client.GrpcKvClientRetryTest" time="0.001" />
+  <testcase name="validatesGrpcEndpointsAndFinitePositiveBudgets" classname="raftkv.client.GrpcKvClientRetryTest" time="0.003" />
+  <testcase name="rpcCapIsRespectedEvenWhenTotalBudgetIsLonger" classname="raftkv.client.GrpcKvClientRetryTest" time="0.0" />
+  <testcase name="interruptionDuringBackoffDoesNotRestartOrHideTheFailure" classname="raftkv.client.GrpcKvClientRetryTest" time="0.0" />
+</testsuite>

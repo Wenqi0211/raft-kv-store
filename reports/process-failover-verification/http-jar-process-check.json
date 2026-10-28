@@ -1,0 +1,12 @@
+{
+  "recorded_at_utc": "2026-10-28T06:18:04.266894+00:00",
+  "command": "RAFTKV_CLASSPATH=build/dist/raftkv.jar bash scripts/process-smoke.sh",
+  "passed": true,
+  "tested_jar_sha256": "8682f9ec453085f1f51744d88cae1fa460bab7f4f1ec42348d78208f5fa80773",
+  "node_process_ids_observed": [
+    21383,
+    21384,
+    21385,
+    21393
+  ]
+}

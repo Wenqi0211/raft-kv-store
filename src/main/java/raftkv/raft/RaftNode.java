@@ -201,7 +201,10 @@ public final class RaftNode {
                 return new RaftRpc.RequestVoteResponse(currentTerm, false);
             }
             if (request.term() > currentTerm) {
-                becomeFollowerLocked(request.term(), null);
+                // A higher term must be durable and clear our vote, but a rejected
+                // stale candidate is not leader contact and must not postpone
+                // our own election. Granting a vote below resets the timer.
+                becomeFollowerLocked(request.term(), null, false);
             }
             boolean upToDate = request.lastLogTerm() > lastLogTermLocked()
                     || (request.lastLogTerm() == lastLogTermLocked() && request.lastLogIndex() >= lastLogIndexLocked());
@@ -626,6 +629,10 @@ public final class RaftNode {
     }
 
     private void becomeFollowerLocked(long term, String newLeaderId) {
+        becomeFollowerLocked(term, newLeaderId, true);
+    }
+
+    private void becomeFollowerLocked(long term, String newLeaderId, boolean resetElectionTimer) {
         boolean higherTerm = term > currentTerm;
         if (higherTerm) {
             currentTerm = term;
@@ -633,7 +640,7 @@ public final class RaftNode {
         }
         role = Role.FOLLOWER;
         leaderId = newLeaderId;
-        resetElectionDeadlineLocked();
+        if (resetElectionTimer) resetElectionDeadlineLocked();
         failPendingLocked("leadership changed before result; outcome unknown");
         if (higherTerm) {
             // Every higher-term path must save, even a rejected vote or empty heartbeat.

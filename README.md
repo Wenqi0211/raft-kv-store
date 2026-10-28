@@ -12,6 +12,9 @@ checks, and reproducible local measurements.
   `GET`, `PUT`, and `DELETE` all pass through the replicated log. Successful new
   operations wait for majority commit, state-machine application, and durable
   state persistence; a minority cannot acknowledge a new read or write.
+- **Election liveness:** rejecting a higher-term candidate with an older log
+  preserves the voter's election deadline while durably updating its term.
+  Granted votes and leader heartbeats still reset the timer.
 - **Durability:** term, vote, log, and snapshot state are persisted before the
   relevant RPC acknowledgments. Saves force file contents, atomically replace
   the state file, and synchronize the parent directory.
@@ -74,10 +77,16 @@ two-node failure and restart, and explicit retry deduplication.
 bash scripts/test.sh                         # JUnit; three seeded scenarios by default
 RAFT_SEED_COUNT=100 bash scripts/test.sh      # Increase to 100 seeded scenarios
 bash scripts/grpc-process-smoke.sh           # Five independent gRPC node JVMs
-bash scripts/verify.sh                       # JUnit, HTTP JAR packaging, three-JVM recovery
+bash scripts/verify.sh                       # JUnit, evidence checks, JAR packaging, recovery
 ```
 
-The retained [selected run](reports/final-capability-100/summary.json) passed
+The final [fixed-source run](reports/process-failover-verification/junit-summary.json)
+passed **144 JUnit cases**, including 100 seeded fault/recovery scenarios, the
+three election-timer regressions, real HTTP/gRPC checks, and process lifecycle
+and configuration tests, with zero failures, errors, or skips. Ten independent
+evidence-validator tests also pass and run in `verify.sh` and CI.
+
+The earlier [selected run](reports/final-capability-100/summary.json) passed
 **127 JUnit cases**: 100 seeded five-node fault/recovery scenarios, six focused
 capability cases, and 21 storage/client/timer/configuration cases, with zero
 failures, errors, or skips. The [three-case gRPC transport suite](reports/network-final/)
@@ -124,6 +133,43 @@ forced process exits are tested separately.
 Evidence: [trial 1](reports/grpc-formal-run-1/),
 [trial 2](reports/grpc-formal-run-2/), [trial 3](reports/grpc-formal-run-3/), and
 the [verified aggregate](reports/study-summary.json).
+
+### Independent-process leader crash
+
+The new process harness keeps four PUT clients active while force-killing the
+last-observed leader JVM. Two local replays of previously failing seeds used
+five independent JVMs, 64 preloaded keys, 64-byte values, and a requested
+20-second workload with the existing 1,000–2,000 ms election timeouts.
+
+| Replay | Confirmed PUTs | Failed requests | PUT/s | Client p99 including crash | Kill to confirmed replacement PUT |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Seed 20261029 | 336 | 0 | 16.71 | 1,546.5 ms | 1.449 s |
+| Seed 20261030 | 327 | 0 | 16.18 | 1,484.9 ms | 1.458 s |
+
+All **663** measured PUTs succeeded. Each run also discarded a received committed
+DELETE reply before application delivery, killed its serving JVM, wrote a newer
+value, and required the original DELETE retry to return its cached result without
+deleting that value. Restart checks compared all five complete durable KV/session
+maps and required snapshot catch-up. Raw requests, fault events, and final state
+fingerprints are checked by an independent verifier; the
+[two-replay aggregate](reports/process-failover-study.json) retains input hashes.
+These are two observed local failovers, not a failover percentile.
+
+The earlier [failed attempt](reports/grpc-process-failover-trial-5/diagnosis.json)
+exposed stale-candidate election starvation: a rejected higher-term vote reset
+the newer-log voter's deadline. A targeted fix retains that deadline; a
+deterministic regression failed before the fix and passed afterward. Original
+failures remain in the repository. The [process measurement guide](docs/process-failover-measurement.md)
+documents the diagnosis, unchanged timer/client budgets, replay procedure, and
+scope of the reply-loss injection.
+
+```bash
+bash scripts/grpc-process-benchmark.sh --duration 20 --kill-after 5 \
+  --clients 4 --keys 64 --value-bytes 64 --seed 20261029 \
+  --report-dir reports/my-process-run
+python3 scripts/verify-process-study.py reports/my-process-run \
+  --output reports/my-process-run/verified.json
+```
 
 ## Reproduce the benchmark
 

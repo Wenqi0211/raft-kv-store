@@ -1,0 +1,46 @@
+{
+  "valid": true,
+  "trial_count": 1,
+  "workload": {
+    "clients": 4,
+    "key_count": 64,
+    "value_bytes": 64,
+    "requested_duration_seconds": 20,
+    "requested_kill_after_seconds": 5,
+    "snapshot_threshold": 10,
+    "election_minimum_ms": 1000,
+    "election_maximum_exclusive_ms": 2000,
+    "heartbeat_interval_ms": 70,
+    "client_logical_request_budget_ms": 10000,
+    "client_per_rpc_cap_ms": 6000,
+    "fault_probe_logical_request_budget_ms": 20000
+  },
+  "trials": [
+    {
+      "successful_requests": 306,
+      "failed_requests": 0,
+      "actual_elapsed_seconds": 20.111508708,
+      "successful_writes_per_second": 15.215168809204188,
+      "latency_p99_success_ms": 1277.155917,
+      "client_retry_rpc_attempts": 179,
+      "successful_requests_with_retry": 4,
+      "leader_kill_to_confirmed_replacement_put_ms": 1277.295041,
+      "restart_to_complete_convergence_ms": 4100.997,
+      "directory": "reports/grpc-process-failover-trial-2",
+      "input_sha256": {
+        "summary.json": "d5e8af83f9bc5a8cdbc4cb3b5e5acec7c8c286914b317e11d34abe68494c2347",
+        "requests.csv": "1d2aecb9efe0f1036f0262ae0a20ff57f596c1ee84a993fd6550b56689d833b4",
+        "events.csv": "451cd85c82d1414fcc49e7e88f69d50db476657d82e426af4dd1ad0d092d5475",
+        "states.csv": "c70f815718f108c9de4ca5e4cccea4d9335d54d091b0bc34b972e5c76675c70e"
+      }
+    }
+  ],
+  "successful_requests": 306,
+  "failed_requests": 0,
+  "pooled_elapsed_seconds": 20.111508708,
+  "pooled_writes_per_second": 15.215168809204188,
+  "pooled_p99_success_ms": 1277.155917,
+  "min_observed_kill_to_replacement_put_ms": 1277.295041,
+  "max_observed_kill_to_replacement_put_ms": 1277.295041,
+  "scope": "One machine, five independent JVMs, active PUT traffic across one forced leader-process exit per trial. Separate committed DELETE reply discarded by a test transport. Observed intervals are not a failover percentile or multi-host result."
+}

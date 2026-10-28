@@ -1,0 +1,95 @@
+{
+  "recorded_at_utc": "2026-10-28T06:16:31.110178+00:00",
+  "java_version": "17.0.17",
+  "command": "RAFT_SEED_COUNT=100 bash scripts/test.sh",
+  "scope": "Final fixed RaftNode source; all JUnit suites, including 100 seeded recovery scenarios, 3 new vote-timer regressions and process lifecycle/configuration checks. XML properties/stdout/stderr omitted to remove local paths.",
+  "raft_node_source_sha256": "271eacb4a1e3e1da4ec7b2d08f5396c5505b00dd6e7bae578ae714eae39c77ff",
+  "suites": [
+    {
+      "suite": "raftkv.client.GrpcKvClientRetryTest",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "a9d200b412baea53fb04d48afa5fbe8a2a19bc48e60734382cdff28282eb0ed4"
+    },
+    {
+      "suite": "raftkv.raft.BufferedPersistenceTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "b4c2d8df3bdfeb0401232e5addb00031e741ae85c9b8e605a49c9821a4266b2d"
+    },
+    {
+      "suite": "raftkv.raft.ElectionTimingTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "a6982124c9e77bd4a27157589991e2a8ddcb42831fd993488c0e51ef15c092c8"
+    },
+    {
+      "suite": "raftkv.raft.ElectionVoteTimerTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "89f18d643218f71962b7c288b34877abe3e4a51c3112848810267ccf9ce03fab"
+    },
+    {
+      "suite": "raftkv.rpc.GrpcTransportTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "34cbdf0cfeb540b5d6bff71583ca1259aaec656e39bc7445d90b48e34694d918"
+    },
+    {
+      "suite": "raftkv.server.GrpcNodeConfigTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "c3c6c8233fd8c99e12ea5c5e74d1dc8f374379db44b5cec92714ec882423b460"
+    },
+    {
+      "suite": "raftkv.testing.LegacyRegressionJUnitTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "d45566c30c3a224632db8a35c8cb28292c588e706ae639426446aaba2576fa26"
+    },
+    {
+      "suite": "raftkv.testing.RaftCapabilityTest",
+      "tests": 106,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "4611908b9526b716fbe766aa83741b25add4dfbd9b3515fc4c291112b50edf15"
+    },
+    {
+      "suite": "raftkv.tool.GrpcProcessBenchmarkConfigTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "8d493e2ab60aad5992ef57d5e7bc2cdb5a7623f2ad71daf73c5331f5e7b4fdbe"
+    },
+    {
+      "suite": "raftkv.tool.GrpcProcessClusterLifecycleTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xml_sha256": "bcf0be1e104c630fc76b6bb077b3241c999c75073655fa337a44396f7cc2844a"
+    }
+  ],
+  "totals": {
+    "tests": 144,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}

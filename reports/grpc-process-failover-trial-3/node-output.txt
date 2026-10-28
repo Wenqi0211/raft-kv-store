@@ -1,0 +1,39 @@
+--- n1 stdout ---
+gRPC Raft node n1 listening at grpc://127.0.0.1:65157
+Fixed membership: [n5, n4, n3, n2, n1]
+Election timing: ElectionTiming[minimumMillis=1000, maximumExclusiveMillis=2000, heartbeatMillis=70]
+Durable state directory: <project>/reports/grpc-process-failover-trial-3/data/n1
+
+--- n1 stderr ---
+
+--- n2 stdout ---
+gRPC Raft node n2 listening at grpc://127.0.0.1:65158
+Fixed membership: [n3, n2, n1, n5, n4]
+Election timing: ElectionTiming[minimumMillis=1000, maximumExclusiveMillis=2000, heartbeatMillis=70]
+Durable state directory: <project>/reports/grpc-process-failover-trial-3/data/n2
+
+--- n2 stderr ---
+
+--- n3 stdout ---
+gRPC Raft node n3 listening at grpc://127.0.0.1:65159
+Fixed membership: [n5, n4, n3, n2, n1]
+Election timing: ElectionTiming[minimumMillis=1000, maximumExclusiveMillis=2000, heartbeatMillis=70]
+Durable state directory: <project>/reports/grpc-process-failover-trial-3/data/n3
+
+--- n3 stderr ---
+
+--- n4 stdout ---
+gRPC Raft node n4 listening at grpc://127.0.0.1:65160
+Fixed membership: [n2, n3, n4, n5, n1]
+Election timing: ElectionTiming[minimumMillis=1000, maximumExclusiveMillis=2000, heartbeatMillis=70]
+Durable state directory: <project>/reports/grpc-process-failover-trial-3/data/n4
+
+--- n4 stderr ---
+
+--- n5 stdout ---
+gRPC Raft node n5 listening at grpc://127.0.0.1:65161
+Fixed membership: [n4, n3, n2, n1, n5]
+Election timing: ElectionTiming[minimumMillis=1000, maximumExclusiveMillis=2000, heartbeatMillis=70]
+Durable state directory: <project>/reports/grpc-process-failover-trial-3/data/n5
+
+--- n5 stderr ---

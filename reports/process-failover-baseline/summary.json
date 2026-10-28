@@ -1,0 +1,72 @@
+{
+  "recorded_at_utc": "2026-10-28T05:52:39.534061+00:00",
+  "git_commit": "3936f590dd6a4d41706e3c5e7dca64365222a4a8",
+  "command": "bash scripts/test.sh",
+  "java_version": "17.0.17",
+  "seeded_scenarios": 3,
+  "suites": [
+    {
+      "suite": "raftkv.client.GrpcKvClientRetryTest",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "source_xml_sha256": "9e14a29f26310a50fe6b545c2c091887214d0463351e5251fabcc368559e72cb"
+    },
+    {
+      "suite": "raftkv.raft.BufferedPersistenceTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "source_xml_sha256": "759da0d1bc4c1fe8d3ddb1d1e6119ca2719ac0e03c872240d54f616512b5d9a2"
+    },
+    {
+      "suite": "raftkv.raft.ElectionTimingTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "source_xml_sha256": "3937a0b4ec9334fb5fc1a56263e765bd59ba217e0493a1a2c44be073ed3f9a52"
+    },
+    {
+      "suite": "raftkv.rpc.GrpcTransportTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "source_xml_sha256": "707d52775696df239b131e8f2fe679560afa51875517e50dd38e00607d91aa8e"
+    },
+    {
+      "suite": "raftkv.server.GrpcNodeConfigTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "source_xml_sha256": "d232839a0423d67b074b30ec61ac3516e3f08b34b66d24db40ffc7f567263e5f"
+    },
+    {
+      "suite": "raftkv.testing.LegacyRegressionJUnitTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "source_xml_sha256": "7d1df78b681c9322f2c9eaea03072bacaaa53451f1225e036d194f487eb1a7b9"
+    },
+    {
+      "suite": "raftkv.testing.RaftCapabilityTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "source_xml_sha256": "8b432e83f4a7c9d1d91f3b312ef9e49a3ab84927578687c7e37694c46a15bfa2"
+    }
+  ],
+  "totals": {
+    "tests": 36,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "scope": "Unmodified baseline; loopback network permission enabled before this passing run."
+}

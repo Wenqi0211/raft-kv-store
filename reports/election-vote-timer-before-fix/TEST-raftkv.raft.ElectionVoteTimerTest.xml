@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="raftkv.raft.ElectionVoteTimerTest" time="0.465" tests="3" errors="0" skipped="0" failures="2" flakes="0">
+  <testcase name="grantedVotesAndCurrentLeaderHeartbeatsStillResetTheDeadline" classname="raftkv.raft.ElectionVoteTimerTest" time="0.145" />
+  <testcase name="repeatedStaleHigherTermCandidatesCannotPostponeAnEligibleElection" classname="raftkv.raft.ElectionVoteTimerTest" time="0.236">
+    <failure message="rejected stale votes must not suppress an expired election ==&gt; expected: &lt;CANDIDATE&gt; but was: &lt;FOLLOWER&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: rejected stale votes must not suppress an expired election ==&gt; expected: &lt;CANDIDATE&gt; but was: &lt;FOLLOWER&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1156)
+	at raftkv.raft.ElectionVoteTimerTest.repeatedStaleHigherTermCandidatesCannotPostponeAnEligibleElection(ElectionVoteTimerTest.java:32)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+</failure>
+  </testcase>
+  <testcase name="rejectingAHigherTermVoteStillStepsDownClearsVoteAndPersistsTerm" classname="raftkv.raft.ElectionVoteTimerTest" time="0.073">
+    <failure message="expected: &lt;42&gt; but was: &lt;1793167490858&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;42&gt; but was: &lt;1793167490858&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at raftkv.raft.ElectionVoteTimerTest.rejectingAHigherTermVoteStillStepsDownClearsVoteAndPersistsTerm(ElectionVoteTimerTest.java:49)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+</failure>
+  </testcase>
+</testsuite>

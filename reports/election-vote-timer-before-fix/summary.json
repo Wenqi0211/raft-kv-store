@@ -1,0 +1,8 @@
+{
+  "scope": "New deterministic regression executed against the unmodified RaftNode implementation. No network or sleeps in the timer regression.",
+  "tests": 3,
+  "failures": 2,
+  "errors": 0,
+  "observed_failure": "Repeated rejected higher-term stale-candidate votes leave an expired voter FOLLOWER instead of allowing its own CANDIDATE election; rejected vote also overwrites a pre-existing deadline.",
+  "protocol_fix_applied": false
+}

@@ -1,0 +1,40 @@
+{
+  "valid_measurement": false,
+  "diagnosis": "Four measured PUTs exhausted their 10-second client budgets after leader termination while survivor terms rose to 11. The replacement PUT was never confirmed and does not appear in any retained log/session. The probe incorrectly wrapped that failure in retryable IOException, obscuring the original timeout until its subsequent GET returned null. The run remained invalid. This is an observed availability-budget failure, not evidence that an acknowledged replacement was deleted.",
+  "probe_fix": "Only the explicitly injected discarded-reply exception is retryable; failed control/probe operations now propagate terminal exceptions with the original response.",
+  "remaining_limit": "No protocol or timer change was made. Election churn and request-budget exhaustion can recur under this local workload; a same-seed rerun does not establish a liveness fix.",
+  "failed_timed_requests": 8,
+  "deadline_length_failures": [
+    {
+      "sequence": 87,
+      "latency_seconds": 10.001609667
+    },
+    {
+      "sequence": 88,
+      "latency_seconds": 10.005155083
+    },
+    {
+      "sequence": 89,
+      "latency_seconds": 10.003732
+    },
+    {
+      "sequence": 90,
+      "latency_seconds": 10.005133542
+    }
+  ],
+  "survivor_final_terms": {
+    "n1": 11,
+    "n2": 11,
+    "n4": 11,
+    "n5": 11
+  },
+  "killed_node_final_term": 1,
+  "all_nodes_retain_cached_original_delete": true,
+  "replacement_put_seen_in_retained_log_or_session": false,
+  "input_sha256": {
+    "summary.json": "33dcd24dcf8309234fc3be3f3cdea9c216dac1fa4e916a242b8767c1d7869c6a",
+    "requests.csv": "a4cf0e84393be267cf6b2c2f21fe94e9d4779ffc01b4fe6df21d47bc4f59202f",
+    "events.csv": "9b0df1a970b5eff03220ad5e2e4a9c20a31a4b591341ffa9c6f8f2b29c545860",
+    "failure-states.csv": "62e595afb5831a60746e8f15efe5c13c9976553bc8433e9698b385f765ca6764"
+  }
+}

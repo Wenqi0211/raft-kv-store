@@ -1,0 +1,15 @@
+test_rejects_a_fabricated_latency_percentile (__main__.ProcessEvidenceValidationTest.test_rejects_a_fabricated_latency_percentile) ... ok
+test_rejects_a_missing_process_kill_event (__main__.ProcessEvidenceValidationTest.test_rejects_a_missing_process_kill_event) ... ok
+test_rejects_divergent_durable_session_maps (__main__.ProcessEvidenceValidationTest.test_rejects_divergent_durable_session_maps) ... ok
+test_rejects_duplicating_a_trial_in_the_aggregate (__main__.ProcessEvidenceValidationTest.test_rejects_duplicating_a_trial_in_the_aggregate) ... ok
+test_rejects_failed_raw_requests_even_if_json_says_valid (__main__.ProcessEvidenceValidationTest.test_rejects_failed_raw_requests_even_if_json_says_valid) ... ok
+test_rejects_five_matching_kv_maps_with_the_wrong_final_values (__main__.ProcessEvidenceValidationTest.test_rejects_five_matching_kv_maps_with_the_wrong_final_values) ... ok
+test_rejects_incorrect_elapsed_time_denominator (__main__.ProcessEvidenceValidationTest.test_rejects_incorrect_elapsed_time_denominator) ... ok
+test_rejects_missing_delete_retry_guarantee (__main__.ProcessEvidenceValidationTest.test_rejects_missing_delete_retry_guarantee) ... ok
+test_rejects_request_retry_counter_corruption (__main__.ProcessEvidenceValidationTest.test_rejects_request_retry_counter_corruption) ... ok
+test_replays_real_retained_request_event_and_state_evidence (__main__.ProcessEvidenceValidationTest.test_replays_real_retained_request_event_and_state_evidence) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.017s
+
+OK

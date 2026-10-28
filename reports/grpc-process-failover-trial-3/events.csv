@@ -1,0 +1,5 @@
+event,offset_nanos,node,pid
+kill_invoked,5316155500,n3,19160
+process_terminated,5329971625,n3,19160
+replacement_put_started,5330377584,n3,19160
+delete_retry_confirmed,17653119000,n3,19160

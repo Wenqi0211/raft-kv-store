@@ -1,0 +1,222 @@
+{
+  "recorded_at_utc": "2026-10-28T06:18:28.948784+00:00",
+  "method": "null-signal existence check against recorded owned process IDs; no termination signals sent",
+  "processes": [
+    {
+      "pid": 18767,
+      "status": "not_running"
+    },
+    {
+      "pid": 18769,
+      "status": "not_running"
+    },
+    {
+      "pid": 18770,
+      "status": "not_running"
+    },
+    {
+      "pid": 18771,
+      "status": "not_running"
+    },
+    {
+      "pid": 18772,
+      "status": "not_running"
+    },
+    {
+      "pid": 18801,
+      "status": "not_running"
+    },
+    {
+      "pid": 18953,
+      "status": "not_running"
+    },
+    {
+      "pid": 18955,
+      "status": "not_running"
+    },
+    {
+      "pid": 18956,
+      "status": "not_running"
+    },
+    {
+      "pid": 18957,
+      "status": "not_running"
+    },
+    {
+      "pid": 18958,
+      "status": "not_running"
+    },
+    {
+      "pid": 19058,
+      "status": "not_running"
+    },
+    {
+      "pid": 19157,
+      "status": "not_running"
+    },
+    {
+      "pid": 19159,
+      "status": "not_running"
+    },
+    {
+      "pid": 19160,
+      "status": "not_running"
+    },
+    {
+      "pid": 19161,
+      "status": "not_running"
+    },
+    {
+      "pid": 19162,
+      "status": "not_running"
+    },
+    {
+      "pid": 19467,
+      "status": "not_running"
+    },
+    {
+      "pid": 19476,
+      "status": "not_running"
+    },
+    {
+      "pid": 19478,
+      "status": "not_running"
+    },
+    {
+      "pid": 19481,
+      "status": "not_running"
+    },
+    {
+      "pid": 19482,
+      "status": "not_running"
+    },
+    {
+      "pid": 19570,
+      "status": "not_running"
+    },
+    {
+      "pid": 19699,
+      "status": "not_running"
+    },
+    {
+      "pid": 19701,
+      "status": "not_running"
+    },
+    {
+      "pid": 19702,
+      "status": "not_running"
+    },
+    {
+      "pid": 19703,
+      "status": "not_running"
+    },
+    {
+      "pid": 19704,
+      "status": "not_running"
+    },
+    {
+      "pid": 20495,
+      "status": "not_running"
+    },
+    {
+      "pid": 20601,
+      "status": "not_running"
+    },
+    {
+      "pid": 20603,
+      "status": "not_running"
+    },
+    {
+      "pid": 20604,
+      "status": "not_running"
+    },
+    {
+      "pid": 20605,
+      "status": "not_running"
+    },
+    {
+      "pid": 20606,
+      "status": "not_running"
+    },
+    {
+      "pid": 20649,
+      "status": "not_running"
+    },
+    {
+      "pid": 20686,
+      "status": "not_running"
+    },
+    {
+      "pid": 20688,
+      "status": "not_running"
+    },
+    {
+      "pid": 20689,
+      "status": "not_running"
+    },
+    {
+      "pid": 20690,
+      "status": "not_running"
+    },
+    {
+      "pid": 20691,
+      "status": "not_running"
+    },
+    {
+      "pid": 20710,
+      "status": "not_running"
+    },
+    {
+      "pid": 21239,
+      "status": "not_running"
+    },
+    {
+      "pid": 21285,
+      "status": "not_running"
+    },
+    {
+      "pid": 21286,
+      "status": "not_running"
+    },
+    {
+      "pid": 21287,
+      "status": "not_running"
+    },
+    {
+      "pid": 21288,
+      "status": "not_running"
+    },
+    {
+      "pid": 21289,
+      "status": "not_running"
+    },
+    {
+      "pid": 21290,
+      "status": "not_running"
+    },
+    {
+      "pid": 21299,
+      "status": "not_running"
+    },
+    {
+      "pid": 21300,
+      "status": "not_running"
+    },
+    {
+      "pid": 21383,
+      "status": "not_running"
+    },
+    {
+      "pid": 21384,
+      "status": "not_running"
+    },
+    {
+      "pid": 21385,
+      "status": "not_running"
+    },
+    {
+      "pid": 21393,
+      "status": "not_running"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "valid": true,
+  "trial_count": 2,
+  "workload": {
+    "clients": 4,
+    "key_count": 64,
+    "value_bytes": 64,
+    "requested_duration_seconds": 20,
+    "requested_kill_after_seconds": 5,
+    "snapshot_threshold": 10,
+    "election_minimum_ms": 1000,
+    "election_maximum_exclusive_ms": 2000,
+    "heartbeat_interval_ms": 70,
+    "client_logical_request_budget_ms": 10000,
+    "client_per_rpc_cap_ms": 6000,
+    "fault_probe_logical_request_budget_ms": 20000,
+    "election_timer_policy": "Rejected higher-term votes retain prior deadline; granted votes and leader contact reset it"
+  },
+  "trials": [
+    {
+      "successful_requests": 336,
+      "failed_requests": 0,
+      "actual_elapsed_seconds": 20.104444958,
+      "successful_writes_per_second": 16.71272202251464,
+      "latency_p99_success_ms": 1546.543333,
+      "client_retry_rpc_attempts": 188,
+      "successful_requests_with_retry": 4,
+      "leader_kill_to_confirmed_replacement_put_ms": 1449.005583,
+      "restart_to_complete_convergence_ms": 3016.3725,
+      "directory": "reports/grpc-process-failover-trial-6",
+      "input_sha256": {
+        "summary.json": "a672d2808fb52ca04d63e3bcb1b186367fff34ed3e6807170baf12ef30738ea2",
+        "requests.csv": "ff4db3af9626b57479fda8cb9820566f7e3e39b5b2f493645f1cd8a3bec03d99",
+        "events.csv": "f5b6606d8b247f80f77c209de29e9d06c514690aa73d3414f9f9295316fa3405",
+        "states.csv": "cb184413589656bbcabf7d117461bd41c5244eb655a88cf7bd3aa35beeb093fa"
+      }
+    },
+    {
+      "successful_requests": 327,
+      "failed_requests": 0,
+      "actual_elapsed_seconds": 20.209271584,
+      "successful_writes_per_second": 16.180692047252762,
+      "latency_p99_success_ms": 1484.88175,
+      "client_retry_rpc_attempts": 188,
+      "successful_requests_with_retry": 4,
+      "leader_kill_to_confirmed_replacement_put_ms": 1457.918917,
+      "restart_to_complete_convergence_ms": 1794.338791,
+      "directory": "reports/grpc-process-failover-trial-7",
+      "input_sha256": {
+        "summary.json": "0d7c80383f1a39fac6edab7b5aabec5a4f981de6bdd5ecd6ef21c25abbad0244",
+        "requests.csv": "c885b5f78316b53c026aebde594ccbfac151238919719820a65dd3b216feccd8",
+        "events.csv": "f321a2646c2e29e9db1d5f09463940e972a923bf6cc6c92a7326d08c606c3f46",
+        "states.csv": "0c4bf4ea0977b02350d15d8c9e55cf975d8b17b786527b940d5181e4444e295e"
+      }
+    }
+  ],
+  "successful_requests": 663,
+  "failed_requests": 0,
+  "pooled_elapsed_seconds": 40.313716541999995,
+  "pooled_writes_per_second": 16.446015323575228,
+  "pooled_p99_success_ms": 1485.018916,
+  "min_observed_kill_to_replacement_put_ms": 1449.005583,
+  "max_observed_kill_to_replacement_put_ms": 1457.918917,
+  "scope": "One machine, five independent JVMs, active PUT traffic across one forced leader-process exit per trial. Separate committed DELETE reply discarded by a test transport. Observed intervals are not a failover percentile or multi-host result."
+}

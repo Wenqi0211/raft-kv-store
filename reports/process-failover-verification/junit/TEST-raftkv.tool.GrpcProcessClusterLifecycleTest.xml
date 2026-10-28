@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="raftkv.tool.GrpcProcessClusterLifecycleTest" time="0.014" tests="2" errors="0" skipped="0" failures="0" flakes="0">
+  <testcase name="closingBeforeStartupPreventsAnyChildFromBeingCreated" classname="raftkv.tool.GrpcProcessClusterLifecycleTest" time="0.003" />
+  <testcase name="closesAnOwnedJvmAndRejectsRestartAfterCleanup" classname="raftkv.tool.GrpcProcessClusterLifecycleTest" time="0.011">
+    </testcase>
+</testsuite>

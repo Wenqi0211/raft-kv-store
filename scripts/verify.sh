@@ -7,6 +7,9 @@ cd "$PROJECT_DIR"
 echo "Checking protocol, persistence, and cluster regressions"
 bash scripts/test.sh
 
+echo "Checking retained process evidence and rejecting corrupted measurements"
+python3 scripts/test_verify_process_study.py -v
+
 echo "Building the Java 17-compatible delivery package"
 bash scripts/package.sh
 

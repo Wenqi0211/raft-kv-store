@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="raftkv.raft.ElectionVoteTimerTest" time="0.143" tests="3" errors="0" skipped="0" failures="0" flakes="0">
+  <testcase name="grantedVotesAndCurrentLeaderHeartbeatsStillResetTheDeadline" classname="raftkv.raft.ElectionVoteTimerTest" time="0.043" />
+  <testcase name="repeatedStaleHigherTermCandidatesCannotPostponeAnEligibleElection" classname="raftkv.raft.ElectionVoteTimerTest" time="0.075" />
+  <testcase name="rejectingAHigherTermVoteStillStepsDownClearsVoteAndPersistsTerm" classname="raftkv.raft.ElectionVoteTimerTest" time="0.024" />
+</testsuite>

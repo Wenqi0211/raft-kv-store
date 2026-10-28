@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "raft_node_processes": 5,
+  "forced_process_exits": 2,
+  "writes_with_three_survivors": 25,
+  "final_matching_key_count": 30,
+  "final_matching_session_count": 3,
+  "killed_leader_pid": 21289,
+  "killed_additional_pid": 21285,
+  "two_process_kills_to_first_confirmed_write_ms": 1319.77575,
+  "measurement_scope": "one machine; five independent JVMs; forced OS process exits; no power loss or partition"
+}

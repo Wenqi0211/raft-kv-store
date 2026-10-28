@@ -1,0 +1,9 @@
+event,offset_nanos,node,pid
+leader_confirmed,5279905083,n3,20604
+kill_invoked,5279913375,n3,20604
+process_terminated,5290822208,n3,20604
+replacement_put_started,5290953125,n3,20604
+replacement_put_confirmed,6728918958,n3,20604
+delete_retry_confirmed,7016148333,n3,20604
+restart_invoked,20168897833,n3,20604
+maps_and_sessions_converged,23185270333,n3,20649

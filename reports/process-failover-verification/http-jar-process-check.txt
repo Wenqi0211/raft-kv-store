@@ -1,0 +1,25 @@
+Data and per-node stdout/stderr logs: <project>/work/process-smoke-1437210984205888302
+[1/5] Start three independent JVMs and wait for a leader
+  n1: PID=21383 http://127.0.0.1:51643
+    stdout: <project>/work/process-smoke-1437210984205888302/n1.stdout.log
+    stderr: <project>/work/process-smoke-1437210984205888302/n1.stderr.log
+  n2: PID=21384 http://127.0.0.1:51644
+    stdout: <project>/work/process-smoke-1437210984205888302/n2.stdout.log
+    stderr: <project>/work/process-smoke-1437210984205888302/n2.stderr.log
+  n3: PID=21385 http://127.0.0.1:51645
+    stdout: <project>/work/process-smoke-1437210984205888302/n3.stdout.log
+    stderr: <project>/work/process-smoke-1437210984205888302/n3.stderr.log
+[2/5] Verify PUT, GET, update, DELETE, and stable canaries over HTTP
+[3/5] Force-kill leader n1 (PID 21383)
+New leader: n3
+[4/5] Wait for both surviving nodes to compact beyond the killed leader's progress
+[5/5] Restart n1 using its existing data and verify all three durable states
+  n1: PID=21393 http://127.0.0.1:51643
+    stdout: <project>/work/process-smoke-1437210984205888302/n1.stdout.log
+    stderr: <project>/work/process-smoke-1437210984205888302/n1.stderr.log
+  n1: PID=21393 applied=44 snapshot=40 keys=29
+  n2: PID=21384 applied=44 snapshot=40 keys=29
+  n3: PID=21385 applied=44 snapshot=40 keys=29
+PASS: HTTP CRUD, forced leader exit, majority writes, snapshot recovery, and three matching durable maps
+This checks independent processes on one machine; it does not simulate power loss or network partitions.
+Retained logs and data: <project>/work/process-smoke-1437210984205888302
